@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><strong>Task Details</strong></mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+      <p><strong>Title: </strong> {{inputData.title}}</p>
+      <p><strong>Description: </strong> {{inputData.description}}</p>
+      <p><strong>Due Date: </strong>{{inputData.dueDate}} </p>
+      <p><strong>Completed: </strong> {{inputData.completed}} </p>
+      <p><strong>Current State: </strong>{{currentState}} </p>
+      <p><strong>State History: </strong></p>
+      <mat-list>
+        <mat-list-item *ngFor="let item of inputData.stateHistory">
+          <span matListItemTitle> State: {{item.state}} </span>
+          <span matListItemLine>Date: {{item.date}} </span>
+        </mat-list-item>
+      </mat-list>
+
+      <p><strong>Notes: </strong></p>
+
+      <mat-list>
+        <mat-list-item *ngFor="let item of inputData.notes">
+          <span matListItemLine>* {{item}} </span>
+        </mat-list-item>
+      </mat-list>
+
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>EDIT</button>
+    <button mat-button>DELETE</button>
+  </mat-card-actions>
+</mat-card>
+

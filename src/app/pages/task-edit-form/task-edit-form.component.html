@@ -1,0 +1,89 @@
+<main>
+    <header>
+      <div>
+        <h1>EDIT TASK</h1>
+      </div>
+    </header>
+  
+    <section>
+      <form [formGroup]="taskForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Title</mat-label>
+          <input
+            matInput
+            autocomplete="off"
+            formControlName="title"
+            type="text"
+            placeholder="Task title"
+          />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <input
+            matInput
+            autocomplete="off"
+            formControlName="description"
+            type="text"
+            placeholder="Task description"
+          />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Due Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="dueDate"
+            placeholder="YYYY/MM/DD"
+            required
+          />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Current state</mat-label>
+          <mat-select formControlName="currentState">
+            <mat-option *ngFor="let state of stateList" [value]="state">{{ state.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+  
+      <div>
+        <mat-form-field appearance="fill" color="primary">
+          <mat-label>Notes</mat-label>
+          <input matInput type="text" placeholder="Write a note" [(ngModel)]="noteText">
+          <mat-hint>At least one note must be added</mat-hint>
+        </mat-form-field>
+  
+        <button matSuffix mat-icon-button aria-label="Add note"
+            (click)="noteList.push(noteText); noteText=''; ">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+      </div>
+  
+      <div *ngIf="noteList.length">
+        <h3>Note list</h3>
+        <ul>
+          <li *ngFor="let note of noteList; let inx=index">
+            <button matSuffix mat-icon-button aria-label="Delete note" (click)="noteList.splice(inx, 1)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <p>
+              <span>{{note}}</span><br/>
+            </p>
+          </li>
+        </ul>
+      </div>
+  
+      <button
+        id="btnContent"
+        mat-raised-button color="primary"
+        (click)="saveTask()"
+        [disabled]="!taskForm.valid || noteList.length === 0"
+      > Save task</button>
+  
+    </section>
+  </main>
+  
